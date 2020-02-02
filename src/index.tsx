@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.sass'
+import * as serviceWorker from './serviceWorker'
+import "normalize.css"
+import "bulma"
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+import router from "./router"
+
+ReactDOM.render(
+  router,
+  document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

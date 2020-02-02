@@ -14,7 +14,7 @@ package-lock.json
 /dist
 
 #editor
-.idea/workspace.xml
+.idea/
 
 # misc
 .DS_Store
