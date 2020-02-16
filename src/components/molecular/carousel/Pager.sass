@@ -1,0 +1,69 @@
+@import "~bulma"
+
+.layout-pager
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  background-color: $black-ter
+  opacity: .7
+
+.pager-control-left, .pager-control-right
+  flex-basis: 20px
+  color: white
+
+.pager-component
+  flex-grow: 1
+
+.pager-list
+  display: flex
+  flex-direction: row
+  overflow-x: hidden
+  justify-content: space-around
+  align-items: center
+
+  .pager-item
+    margin: 5px 2px
+    flex: 0 0 33.33333%
+    background-color: white
+
+    &-img
+      object-fit: cover
+      //height: 100px
+      &:first-child
+        object-position: right
+
+      &:last-child
+        object-position: left
+
+.pager-item:first-child
+  .item
+    &-exit
+      flex-basis: 33.333%
+
+    &-exit-active
+      transition: flex-basis 500ms ease-in-out
+      flex-basis: 0
+
+    &-enter
+      flex-basis: 0
+
+    &-enter-active
+      transition: flex-basis 500ms ease-in-out
+      flex-basis: 33.333%
+
+.pager-item:last-child
+  .item
+    &-enter
+      flex-basis: 0
+
+    &-enter-active
+      transition: flex-basis 300ms ease-in-out
+      flex-basis: 33.333%
+
+    &-exit
+      flex-basis: 33.333%
+
+    &-exit-active
+      transition: flex-basis 300ms ease-in-out
+      flex-basis: 0

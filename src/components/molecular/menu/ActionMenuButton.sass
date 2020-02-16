@@ -1,0 +1,28 @@
+.action-buttons
+  position: absolute
+  right: 2.0rem
+  bottom: 4.0rem
+
+.action-buttons-container
+  position: relative
+  width: auto
+  height: auto
+
+.action-button-icon
+  vertical-align: middle
+  position: absolute
+  width: 1.1rem
+  height: 1.1rem
+  top: calc(50% - .55rem)
+  left: calc(50% - .55rem)
+
+button.is-active
+  transition: left 500ms linear, top 500ms linear
+
+  &:first-child
+    top: calc(50% - .55rem - 4.0rem)
+    left: calc(50% - .55rem)
+
+  &:last-child
+    top: calc(50% - .55rem)
+    left: calc(50% - .55rem - 4.0rem)

@@ -1,0 +1,15 @@
+.accordion-list
+
+  .accordion-toggle
+    display: block
+    //transition-delay: 300ms
+    //transition-timing-function: linear
+    transition: visibility 0s, height 500ms linear
+
+    &.show
+      visibility: visible
+      height: auto
+
+    &.hide
+      height: 0
+      visibility: hidden

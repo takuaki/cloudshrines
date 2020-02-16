@@ -1,0 +1,44 @@
+.about-layout
+  max-height: 50vh
+  position: relative
+
+  &::after
+    /*yellow border line*/
+    position: absolute
+    content: ''
+    height: 0
+    width: 50%
+    bottom: 0
+    left: 0
+    border-bottom: 1px solid yellow
+
+.about-header
+  display: flex
+  flex-direction: row
+  align-items: baseline
+
+  &-title
+    margin-right: auto
+
+  &-button
+    margin-left: auto
+    margin-right: 5vw
+
+.about-content
+  padding: 1.0rem 15% 1.5rem 1.5rem
+
+  &-headline
+    font-size: .9rem
+    color: white
+    line-height: 1.2
+    text-align: left
+    overflow-wrap: break-word
+    overflow-y: scroll
+
+  &-link
+    margin-top: 1.0rem
+    @at-root
+      &-item:not(:last-child)
+        margin-bottom: 1.2em
+
+

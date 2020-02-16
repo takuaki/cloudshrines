@@ -1,0 +1,34 @@
+.layout-button
+  font-weight: 500
+  font-size: 1.0rem
+  border-radius: .5em
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1)
+
+  &-light
+    color: darkcyan
+    background-color: white
+
+    &:hover
+      color: white
+      background-color: darkcyan
+
+    &[disabled]
+      background: darkgray
+      color: darkcyan
+
+  &-dark
+    color: white
+    background: darkgreen
+
+    &:hover
+      color: darkgreen
+      background: white
+
+  .button-icon
+    size: inherit
+    color: inherit
+    vertical-align: text-top
+    margin-right: .5em
+    margin:
+      top: auto
+      bottom: auto
