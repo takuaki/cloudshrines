@@ -2,6 +2,10 @@
 #custom
 /server
 
+#firebase
+.firebase/
+
+
 # dependencies
 /node_modules
 /.pnp
