@@ -3,7 +3,8 @@ import Layout from "../components/atom/layout/FixedDarkLayout"
 import "./Checkout.sass"
 import {useHistory} from "react-router-dom"
 import src from "../assets/background.jpg"
-import api from "../client/stripe"
+//import api from "../client/stripe"
+import {Stripe} from "../client/stripe"
 import CheckOutForm from "../components/organism/form/CheckOutForm"
 import SimpleTitle from "../components/atom/title/SimpleTitle"
 import {Elements} from "@stripe/react-stripe-js"
@@ -21,8 +22,9 @@ const Checkout = (props: PropType) => {
   const history = useHistory()
 
   useEffect(() => {
-    api.getPublicStripeKey().then(apiKey => {
-      setApiKey(apiKey)
+    const stripe = new Stripe()
+    stripe.getPubKey().then(({data}) => {
+      setApiKey(data.pubkey)
     })
   })
 

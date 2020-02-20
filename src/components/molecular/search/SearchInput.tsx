@@ -1,45 +1,58 @@
-import React, {ChangeEvent} from "react"
-import {Link} from "react-router-dom"
-import styled from "styled-components"
+import React, {ChangeEvent, ChangeEventHandler, TouchEventHandler, useState, FunctionComponent, useEffect} from "react"
+import {type} from "os"
 
-interface Props {
+interface PropType<T> {
   className?: string,
+  title?: string,
+  onClick: (value?: T) => void,
+  list: Array<T>
 }
 
-interface State {
-  value?: string
-}
+const SearchInput = <T extends { name: string }>({className, title, onClick, list = []}: PropType<T>) => {
 
-class SearchInput extends React.Component<Props, State> {
-  public static defaultProps: Props = {
-    className: ''
-  }
+  const [value, setValue] = useState<string | undefined>(undefined)
+  const [options, setOptions] = useState<Array<T>>([])
 
-  private handleChange(event: ChangeEvent<HTMLInputElement>): void {
-    const value = event.target.value
-    this.setState({value: value})
-  }
+  useEffect(() => {
+    setOptions(list)
+  }, [list])
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {value: ''}
-    this.handleChange = this.handleChange.bind(this)
-  }
-
-  render() {
-    return (
-      <div className={`field has-addons ${this.props.className}`}>
-        <div className={"control"}>
-          <input className={"input"} type={"text"} placeholder={"伊勢神宮"} value={this.state?.value}
-                 onChange={this.handleChange}/>
-        </div>
-        <div className={"control"}>
-          <Link to={`/search?name=${this.state.value}`} className={"button is-info"}>Search</Link>
-        </div>
+  return (
+    <div className={`field has-addons ${className || ''}`}>
+      <div className={"control"}>
+        <input className={"input"} type={"text"} placeholder={"伊勢神宮"} value={value || ''}
+               aria-controls={"dropdown-menu"}
+               onChange={
+                 (event) => {
+                   event.preventDefault()
+                   const name = event.target.value
+                   setValue(name)
+                   const options = list.filter(option => {
+                     return option.name.includes(name)
+                   })
+                   setOptions(options)
+                 }
+               }
+               list={"datalist"}/>
+        {list &&
+        <datalist id={"datalist"}>
+          {options?.map((option) => {
+            return <option key={option.name} onClick={() => {
+              setValue(option.name)
+            }}>{option.name}</option>
+          })}
+        </datalist>
+        })}
       </div>
-    )
-  }
+      <div className={"control"}>
+        <a className={"button is-info"} onClick={() => {
+          if (options.length === 1)
+            onClick(options.shift())
+        }}>{title ?? 'Search'}</a>
+      </div>
+    </div>
+  )
 }
 
-export default styled(SearchInput)``
+export default SearchInput
 

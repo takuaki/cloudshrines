@@ -1,25 +1,30 @@
-import axios from "axios"
+import * as firebase from "firebase"
+import {Base} from ".."
 
-const https = axios.create({
-  baseURL: 'http://localhost:3000',
-  timeout: 3000,
-})
+export class Stripe extends Base {
 
-const api = {
-  //TODO implements
-  getPublicStripeKey: async () => {
-    return await https.post('/public-key').then(value => value.data)
-  },
-  createPaymentIntent: async (params: { receipt_email?: string, amount: number }):
-    Promise<{ client_secret?: string, error?: string }> => {
-    try {
-      const {client_secret, error} = await https.post('/create-payment-intent', params).then(res => res.data)
-      return {client_secret: client_secret, error: error}
-    } catch (error) {
-      return {client_secret: undefined, error: error}
-    }
-  },
+  private function: firebase.functions.Functions
+
+  constructor() {
+    super();
+    this.function = this.instance.functions()
+    this.function.useFunctionsEmulator("http://localhost:5000")
+  }
+
+  public async getPubKey() {
+    return this.function.httpsCallable('getPublicKey')({})
+      .then(({data}) => {
+        return data.pubkey
+      })
+  }
+
+  public async createPaymentIntent(params: { receipt_email?: string, amount: number }) {
+    return this.function.httpsCallable('getPaymentIntent')(params)
+      .then(({data}) => {
+        return {client_secret: data.client_secret, error: undefined}
+      }).catch((error: firebase.functions.HttpsError) => {
+        return {client_secret: undefined, error: error.message}
+      })
+  }
 }
-
-export default api
 

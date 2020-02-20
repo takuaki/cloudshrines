@@ -1,8 +1,11 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
+import {useHistory} from "react-router-dom"
 import SearchInput from "../components/molecular/search/SearchInput"
 import "./Top.sass"
 import Layout from "../components/atom/layout/FixedDarkLayout"
+import {loadShineIds} from "../model/usecase"
 import src from "../assets/background.jpg"
+import {NameModel} from "../model"
 
 const Title: React.FC<{ className: string }> = ({className, ...props}) => {
   return (
@@ -25,8 +28,19 @@ const Strong: React.FC<{ level: number }> = ({level = 5, ...props}) => {
   )
 }
 
+const Top: React.FC = () => {
+  const history = useHistory()
+  const [list, setList] = useState<Array<{ id: string } & { name: NameModel }>>([])
 
-const Top = () => {
+  useEffect(() => {
+    const f = async () => {
+      const shrines = await loadShineIds()
+      setList(shrines)
+    }
+    f()
+  }, [])
+
+
   return (
     <main>
       <Layout background={src}>
@@ -38,7 +52,15 @@ const Top = () => {
             Let you feel more comfortable like you are there.<br/>
             Enjoy visiting shrines!
           </Caption>
-          <SearchInput className={'top-search'}/>
+          <SearchInput<{ name: string, id: string }>
+            list={list.map(({id, name}) => {
+              return {id: id, name: name.kanji}
+            })}
+            className={'top-search'}
+            onClick={(prop) => {
+              if (prop)
+                history.push(`/shrine/${prop.id}`)
+            }}/>
         </div>
       </Layout>
     </main>

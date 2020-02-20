@@ -5,19 +5,22 @@
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "npm run build && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^8.0.0",
-    "firebase-functions": "^3.1.0"
+    "firebase-functions": "^3.1.0",
+    "stripe": "^8.18.0",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "@types/stripe": "^7.13.21"
   },
   "private": true
 }

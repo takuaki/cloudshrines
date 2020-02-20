@@ -1,6 +1,6 @@
 import React, {useState, MouseEventHandler} from "react"
 import "./CheckOutForm.sass"
-import api from "../../../client/stripe"
+import {Stripe} from "../../../client/stripe"
 import {useHistory} from "react-router-dom"
 import StripeCardInput from "../../atom/input/StripeCardInput"
 import ChargeInput from "../../atom/input/ChargeInput"
@@ -13,6 +13,7 @@ import RectangularButton from "../../atom/button/RectangularButton"
 const CheckOutForm: React.FC = () => {
   const history = useHistory()
   const stripe = useStripe()
+  const server = new Stripe()
   const elements = useElements()
   const [amount, setAmount] = useState(0)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -27,9 +28,9 @@ const CheckOutForm: React.FC = () => {
     if (!cardElement) {
       return
     }
-    const {client_secret, error} = await api.createPaymentIntent({amount: amount})
-    setError(error)
+    const {client_secret, error} = await server.createPaymentIntent({amount: amount})
     if (error) {
+      setError(error)
       return
     }
     const {paymentIntent, error: stripeError} = await stripe.confirmCardPayment(client_secret!, {

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import CheckOutForm from "../form/CheckOutForm"
-import api from "../../../client/stripe"
+//import api from "../../../client/stripe"
+import {Stripe} from "../../../client/stripe"
 import {Elements} from "@stripe/react-stripe-js"
 import {loadStripe} from "@stripe/stripe-js"
 
@@ -15,10 +16,13 @@ const CheckoutFormDialog = ({isOpen, closeModal}: PropType) => {
   const [apikey, setApiKey] = useState<string | null>(null)
 
   useEffect(() => {
-    api.getPublicStripeKey().then(apiKey => {
+    const stripe = new Stripe()
+    console.log('useEffect')
+    stripe.getPubKey().then(apiKey => {
       setApiKey(apiKey)
     })
-  })
+  }, [])
+
   if (!isOpen) {
     return null
   } else {
@@ -27,7 +31,7 @@ const CheckoutFormDialog = ({isOpen, closeModal}: PropType) => {
       <div className={"modal is-active"}>
         <div className={"modal-background"}/>
         <div className={"modal-content"}>
-          {apikey && (
+          {!!apikey && (
             <Elements stripe={loadStripe(apikey)}>
               <CheckOutForm/>
             </Elements>

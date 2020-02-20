@@ -1,6 +1,5 @@
 import React from "react"
 import "./Access.sass"
-import styled from "styled-components"
 import {FiMapPin} from "react-icons/fi"
 import {IconContext} from "react-icons"
 
@@ -14,7 +13,7 @@ const Access = (props: PropType) => {
   return (
     <div className={props.className || ''}>
       <div className={"layout-paragraph"}>
-        <p className={"paragraph-heading"}>
+        <p className={"paragraph-headline"}>
           Access
           <IconContext.Provider value={{color: 'white', className: 'map-icon'}}>
             <FiMapPin/>

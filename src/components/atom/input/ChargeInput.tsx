@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from "react"
-import {IconContext} from "react-icons"
-import {MdClose} from "react-icons/md"
 
 interface PropType {
   defaultValue: number,
@@ -21,10 +19,6 @@ const ChargeInput: React.FC<PropType>
   useEffect(() => {
     setAmount(defaultValue)
   }, [defaultValue])
-
-  const showClose = () => {
-    return amount !== 0
-  }
 
   return (
     <div className={`field has-addons ${className}`}>

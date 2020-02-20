@@ -1,86 +1,69 @@
-import React from "react"
-import styled from "styled-components"
+import React, {useState,useEffect} from "react"
 import "./Pager.sass"
 import {FaChevronRight, FaChevronLeft} from "react-icons/fa"
-import {TransitionGroup, CSSTransition} from "react-transition-group"
+import {TransitionGroup} from "react-transition-group"
+import {CSSTransition} from "react-transition-group"
 
 interface PropType {
-  items: Array<{ src: string }>,
+  items: Array<string>,
   className?: string
 }
 
-interface StateType {
-  items: Array<{ src: string }>
-}
+const Pager: React.FC<PropType> = ({className, items}: PropType) => {
 
-class Pager extends React.Component<PropType, StateType> {
+  const n: number = 3 //if this value changed , change .sass too.
+  const N: number = n + 2
+  const L: number = items.length
 
-  private index: number = 0
-  private readonly n: number = 3 //if this value changed , change .sass too.
-  private readonly N: number = this.n + 2
-  private readonly items: Array<{ src: string }>
-  private readonly L: number
+  if (items.length < n)
+    throw new Error(`item should be equal or larger than ${n}`)
+  else if (items.length < 3)
+    throw new Error(`item should be equal or more than 3`)
 
-  handlePrevPage(_: any): void {
-    const i = (this.index - 1) % this.L
-    const prev = i === 0 ? this.items.slice(-1) : this.items.slice(i - 1, i)
-    this.setState({
-      items: prev.concat(this.state.items.slice(0, -1))
-    })
-    this.index = this.index - 1
+  let [index, setIndex] = useState(0)
+  let [itemList, setItems] = useState(() =>
+    items.slice(-1).concat(
+      items.length > N - 1 ? items.slice(0, N - 1) :
+        items.length === N - 1 ? items :
+          items.length === N - 2 ? items.concat(items.slice(0, 1)) : [/*never used*/]))
+
+  useEffect(()=>{
+    setItems(items)
+  },[items])
+
+  const handlePrevPage = (_: any) => {
+    const i = (index - 1) % L
+    const prev = i === 0 ? itemList.slice(-1) : itemList.slice(i - 1, i)
+    setItems(prev.concat(itemList.slice(0, -1)))
+    setIndex(prev => prev - 1)
   }
 
-  handleNextPage(_: any): void {
-    const i = (this.index + this.N - 1) % this.L
-    const next = i === -1 ? this.items.slice(-1) : this.items.slice(i, i + 1)
-    this.setState({
-        items: this.state.items.slice(1).concat(next)
-      }
-    )
-    this.index = this.index + 1
+  const handleNextPage = (_: any) => {
+    const i = (index + N) % L
+    const next = i === -1 ? itemList.slice(-1) : itemList.slice(i, i + 1)
+    setItems(prev => prev.slice(1).concat(next))
+    setIndex(prev => prev + 1)
   }
 
-  constructor({items, className}: PropType) {
-    super({items, className})
-    if (items.length < this.n)
-      throw new Error(`item should be equal or larger than ${this.n}`)
-    else if (items.length < 3)
-      throw new Error(`item should be equal or more than 3`)
-    this.items = items
-    this.L = this.items.length
-    this.handleNextPage = this.handleNextPage.bind(this)
-    this.handlePrevPage = this.handlePrevPage.bind(this)
-    this.state = {
-      items: items.slice(-1).concat(
-        items.length > this.N - 1 ? items.slice(0, this.N - 1) :
-          items.length === this.N - 1 ? items :
-            items.length === this.N - 2 ? items.concat(items.slice(0, 1)) :
-              [/*never reach*/]
-      )
-    }
-  }
-
-  render() {
-    return (
-      <div className={`layout-pager ${this.props.className}`}>
-        <FaChevronLeft className={"pager-control-left"} onClick={this.handlePrevPage}/>
-        <div className={"pager-component"}>
-          <TransitionGroup className={"pager-list"}>
-            {this.state.items.map(({src}, index) => (
-              <CSSTransition timeout={500} classNames={"item"} key={index}>
-                <div className={"pager-item"}>
-                  <figure className={"image is-4by3"}>
-                    <img src={src} alt={""} className={"pager-item-img"}/>
-                  </figure>
-                </div>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </div>
-        <FaChevronRight className={"pager-control-right"} onClick={this.handleNextPage}/>
+  return (
+    <div className={`layout-pager ${className}`}>
+      <FaChevronLeft className={"pager-control-left"} onClick={handlePrevPage}/>
+      <div className={"pager-component"}>
+        <TransitionGroup className={"pager-list"}>
+          {itemList.map((url, index) => (
+            <CSSTransition timeout={500} classNames={"item"} key={index}>
+              <div className={"pager-item"}>
+                <figure className={"image is-4by3"}>
+                  <img src={url} alt={""} className={"pager-item-img"}/>
+                </figure>
+              </div>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </div>
-    )
-  }
+      <FaChevronRight className={"pager-control-right"} onClick={handleNextPage}/>
+    </div>
+  )
 }
 
 export default Pager

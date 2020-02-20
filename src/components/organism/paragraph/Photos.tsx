@@ -9,20 +9,17 @@ interface PropType {
   className?: string
 }
 
-const Photos = ({className, photosUrl}: PropType) => {
+const Photos:React.FC<PropType> = ({className, photosUrl}: PropType) => {
   return (
     <div className={className || ''}>
       <div className={"layout-paragraph"}>
-        <p className={"paragraph-heading"}>
+        <p className={"paragraph-headline"}>
           Gallery
           <IconContext.Provider value={{color: 'white', className: 'camera-icon'}}>
             <FiCamera/>
           </IconContext.Provider>
         </p>
-        <Pager className={"photos-pager"} items={photosUrl.map(url => ({
-          'src': url
-        }))}>
-        </Pager>
+        <Pager className={"photos-pager"} items={photosUrl}/>
       </div>
     </div>
   )

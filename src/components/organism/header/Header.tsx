@@ -1,5 +1,4 @@
 import React, {MouseEventHandler} from "react"
-import styled from "styled-components"
 import {MdChevronLeft} from "react-icons/md"
 import {IconContext} from "react-icons"
 import "./Header.sass"
@@ -22,4 +21,4 @@ const Header = (props: PropType) => {
   )
 }
 
-export default styled(Header)``
+export default Header
