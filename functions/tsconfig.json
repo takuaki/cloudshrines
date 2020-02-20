@@ -2,10 +2,12 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
-    "noUnusedLocals": true,    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "moduleResolution": "node",
     "strict": true,
     "outDir": "lib",
     "rootDir": ".",
+    "noImplicitAny": false,
     "importHelpers": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
