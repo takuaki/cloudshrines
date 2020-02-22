@@ -12,7 +12,7 @@ import Header from "../src/components/organism/header/Header"
 import Accordion from "../src/components/molecular/accordion/Accordion"
 import FloatCircleButton from "../src/components/atom/button/FloatCircleButton"
 import DefaultLink from "../src/components/atom/link/DefaultLink"
-import Top from "../src/page/Top"
+import Top from "../src/page/TopPage"
 import Shrine from "../src/page/ShrinePage"
 import Access from "../src/components/organism/paragraph/Access"
 import Photos from "../src/components/organism/paragraph/Photos"
@@ -31,6 +31,7 @@ import {Elements} from "@stripe/react-stripe-js"
 import RectangularButton from "../src/components/atom/button/RectangularButton"
 import {MdHome} from "react-icons/all"
 import ThanksPage from "../src/page/ThanksPage"
+import ShrineSelector from "../src/components/molecular/select/ShrineSelector"
 
 storiesOf('Input', module)
   .add('ChargeInput', (

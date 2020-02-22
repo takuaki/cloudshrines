@@ -1,26 +1,30 @@
+@import "../styles"
+
+.is-show-mobile
+  @include from($tablet)
+    display: none
+
 .top
   &-container
     display: flex
+    max-width: 380px
     flex-direction: column
     align-items: center
     justify-content: center
     margin:
-      top: 30vh
+      top: 25vh
       left: auto
       right: auto
-    width: 70vw
 
   &-title
+    width: auto
 
   &-caption
-    margin-top: 2.0em
-    margin-left: 1.0em
-    margin-right: 1.0em
+    margin-top: 1.5em
+    margin-bottom: 2.0em
     overflow-wrap: break-word
     word-break: break-word
     line-height: 1.2
-    font-weight: 400
-
+    flex-shrink: 1
 
   &-search
-    margin-top: 2.0rem

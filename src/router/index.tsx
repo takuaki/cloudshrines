@@ -2,7 +2,7 @@ import React from "react"
 import {Route, BrowserRouter, Switch, Router} from "react-router-dom"
 //import hashHistory,{Route,Router} from "react-router"
 
-import Top from "../page/Top"
+import Top from "../page/TopPage"
 import ShrinePage from "../page/ShrinePage"
 import ThanksPage from "../page/ThanksPage"
 

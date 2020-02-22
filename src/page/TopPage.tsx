@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {useHistory} from "react-router-dom"
 import SearchInput from "../components/molecular/search/SearchInput"
-import "./Top.sass"
+import "./TopPage.sass"
 import Layout from "../components/atom/layout/FixedDarkLayout"
 import {loadShineIds} from "../model/usecase"
 import src from "../assets/background.jpg"
@@ -10,13 +10,13 @@ import {NameModel} from "../model"
 const Title: React.FC<{ className: string }> = ({className, ...props}) => {
   return (
     <p
-      className={`title is-size-2 has-text-centered has-text-white has-text-weight-semibold${className}`}>{props.children}</p>
+      className={`title is-size-2-mobile is-size-1 has-text-centered has-text-white has-text-weight-semibold ${className}`}>{props.children}</p>
   )
 }
 
 const Caption: React.FC<{ className: string }> = ({className, ...props}) => {
   return (
-    <p className={`has-text-left has-text-white is-size-6 ${className}`}>{props.children}</p>
+    <p className={`is-size-5 has-text-left has-text-white ${className}`}>{props.children}</p>
   )
 }
 
@@ -49,7 +49,7 @@ const Top: React.FC = () => {
           <Caption className={"top-caption"}>
             <Strong level={5}>W</Strong>
             eb shrine is a new platform for visiting Japanese shrine anywhere you want to go.
-            Let you feel more comfortable like you are there.<br/>
+            Let you feel more comfortable like you are there.
             Enjoy visiting shrines!
           </Caption>
           <SearchInput<{ name: string, id: string }>
