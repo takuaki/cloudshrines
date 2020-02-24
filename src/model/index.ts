@@ -8,7 +8,7 @@ export interface ShrineModel {
   id: string,
   name: NameModel,
   headline: string,
-  access: { postal: string, address: string, location?: { lat?: number, lng?: number } },
+  access: { postal: string, address: { state: string, city: string, line1: string }, location?: { lat?: number, lng?: number } },
   preview: Array<string>
 }
 

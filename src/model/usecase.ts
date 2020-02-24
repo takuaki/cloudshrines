@@ -1,5 +1,5 @@
 import {NameModel, ShrineModel} from "./"
-import {Firestore} from "../client/firestore"
+import {Firestore, ShrineData} from "../client/firestore"
 import {Storage} from "../client/cloudstorage"
 
 export const loadShrine = async (id: string): Promise<ShrineModel | undefined> => {
@@ -24,6 +24,31 @@ export const loadShrine = async (id: string): Promise<ShrineModel | undefined> =
       }
     }
   } as ShrineModel
+}
+
+export const searchShrines = async (params: { [key in 'state' | 'city' | 'area' | 'category']: string | null }): Promise<Array<ShrineModel>> => {
+  const firestore = new Firestore()
+  const storage = new Storage()
+  const shrines = await firestore.searchShrines(params)
+  return Promise.all(shrines.filter(shrine => typeof shrine !== 'undefined').map(async (shrine: ShrineData & { id: string }) => {
+    const id = shrine.id
+    let preview = shrine.preview ?? await storage.loadPreviews(id)
+    const {longitude, latitude} = {...shrine.access.location}
+    return {
+      id: shrine.id,
+      name: shrine.name,
+      headline: shrine.headline,
+      preview: preview,
+      access: {
+        postal: shrine.access.postal,
+        address: shrine.access.address,
+        location: {
+          lat: latitude,
+          lng: longitude
+        }
+      }
+    } as ShrineModel
+  }))
 }
 
 export const loadShrineByName = async (kana: string): Promise<ShrineModel | undefined> => {

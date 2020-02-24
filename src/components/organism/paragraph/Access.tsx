@@ -5,13 +5,13 @@ import {IconContext} from "react-icons"
 
 interface PropType {
   postal: string,
-  address: string
+  address: { city: string, state: string, line1: string }
   className?: string
 }
 
-const Access = (props: PropType) => {
+const Access = ({postal, className, address}: PropType) => {
   return (
-    <div className={props.className || ''}>
+    <div className={className || ''}>
       <div className={"layout-paragraph"}>
         <p className={"paragraph-headline"}>
           Access
@@ -21,10 +21,10 @@ const Access = (props: PropType) => {
         </p>
         <div className={"paragraph-contents"}>
           <p className={"access-postal"}>
-            {`〒${props.postal}`}
+            {`〒${postal}`}
           </p>
           <p className={"access-address"}>
-            {props.address}
+            {address.state + address.city + address.line1}
           </p>
         </div>
       </div>

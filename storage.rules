@@ -2,8 +2,8 @@ rules_version = '2';
 
 service firebase.storage {
   match /b/{bucket}/o {
-    match /preview/{id} {
-      allow read
+    match /preview/{id=**} {
+      allow read;
     }
   }
 }

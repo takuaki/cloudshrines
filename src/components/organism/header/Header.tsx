@@ -1,5 +1,5 @@
 import React, {MouseEventHandler} from "react"
-import {MdChevronLeft} from "react-icons/md"
+import {FaChevronLeft} from "react-icons/fa"
 import {IconContext} from "react-icons"
 import "./Header.sass"
 
@@ -14,7 +14,7 @@ const Header = (props: PropType) => {
     <div className={"header-layout"} style={{height: props.height || '2rem'}}>
       <IconContext.Provider value={{color: props.color || 'white', className: 'header-back'}}>
         <div onClick={props.onClick}>
-          <MdChevronLeft/>
+          <FaChevronLeft/>
         </div>
       </IconContext.Provider>
     </div>

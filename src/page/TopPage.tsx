@@ -16,7 +16,7 @@ const Title: React.FC<{ className: string }> = ({className, ...props}) => {
 
 const Caption: React.FC<{ className: string }> = ({className, ...props}) => {
   return (
-    <p className={`is-size-5 has-text-left has-text-white ${className}`}>{props.children}</p>
+    <p className={`is-size-6-mobile is-size-5 has-text-left has-text-white ${className}`}>{props.children}</p>
   )
 }
 
@@ -57,9 +57,12 @@ const Top: React.FC = () => {
               return {id: id, name: name.kanji}
             })}
             className={'top-search'}
+            onClickTable={(key, prop) => {
+              history.push(`/shrines?${key}=${prop}`)
+            }}
             onClick={(prop) => {
               if (prop)
-                history.push(`/shrine/${prop.id}`)
+                history.push(`/shrines/${prop.id}`)
             }}/>
         </div>
       </Layout>

@@ -1,10 +1,9 @@
 import React from "react"
-import {Route, BrowserRouter, Switch, Router} from "react-router-dom"
-//import hashHistory,{Route,Router} from "react-router"
-
+import {Route, BrowserRouter, Switch} from "react-router-dom"
 import Top from "../page/TopPage"
 import ShrinePage from "../page/ShrinePage"
 import ThanksPage from "../page/ThanksPage"
+import ShrinesListPage from "../page/ShrinesListPage"
 
 const router = (
   <BrowserRouter>
@@ -12,7 +11,10 @@ const router = (
       <Route path="/" exact>
         <Top/>
       </Route>
-      <Route path={"/shrine/:id"} exact>
+      <Route path={"/shrines/"} exact>
+        <ShrinesListPage/>
+      </Route>
+      <Route path={"/shrines/:id"} exact>
         <ShrinePage/>
       </Route>
       <Route path={"/thanks"} exact>
