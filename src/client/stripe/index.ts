@@ -8,7 +8,6 @@ export class Stripe extends Base {
   constructor() {
     super();
     this.function = this.instance.functions()
-    this.function.useFunctionsEmulator("http://localhost:5000")
   }
 
   public async getPubKey() {

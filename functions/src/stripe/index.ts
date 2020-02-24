@@ -21,6 +21,7 @@ export const paymentIntent = async (params: { amount: number, receipt_email: str
   }).then(result => {
     return {intent: result, error: undefined}
   }).catch((error) => {
+    console.error(error)
     let message = ''
     switch (error.type) {
       case 'StripeCardError':
